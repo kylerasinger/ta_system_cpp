@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1680721755 source:c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\main.cpp
+	<iostream>
+	<vector>
+	"Ta.h"
+
+1680719249 c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\ta.h
+	<iostream>
+
+1680722211 source:c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\ta.cpp
+	"Ta.h"
+
