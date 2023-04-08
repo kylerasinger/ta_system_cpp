@@ -10,11 +10,12 @@ class Ta
         virtual ~Ta();
         Ta(std::string deptS, std::string statusS, int yearN, int idN);
 
+        void printInfo();
+
         std::string getDept();
         std::string getStatus();
         int getYearHired();
         int getStudentId();
-
         void setDept(std::string s);
         void setStatus(std::string s);
         void setYearHired(int n);
