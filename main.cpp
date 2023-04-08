@@ -60,7 +60,7 @@ int main()
 
             Ta tempTa(ssDept.str(), ssStatus.str(), intYearHired, intStudentId);
 
-            tempTa.printInfo();
+            taList->push_back(tempTa);
         }
         else if(currentLine == 1) //gets list size
         {
@@ -79,6 +79,10 @@ int main()
 
     }
 
+    for(int i = 0; i < (*taList).size() ; i++){
+        taList+i;
+        taList->printInfo();
+    }
     //cout << "\noutputs:\n";
     //cout << listSize;
 

@@ -23,6 +23,14 @@ void Ta::printInfo()
     std::cout << "print info: " <<dept << " " << status << " " << yearHired << " " << studentId << "\n";
 }
 
+bool Ta::isAlum()
+{
+    if(status == "Alum"){
+        return true;
+    }
+    false;
+}
+
 std::string Ta::getDept(){return dept;}
 std::string Ta::getStatus(){return status;}
 int Ta::getYearHired(){return yearHired;}
