@@ -11,19 +11,18 @@ using namespace std;
 int main()
 {
     cout << "Program Start: \n" << endl;
-    vector<Ta>* taList = new vector<Ta>;
+    //vector<Ta>* taList = new vector<Ta>;
+    vector<Ta> taList;
     int listSize = 0;
 
     ifstream taListFile("ta_list.txt");
     ostringstream ss;
-    string line;
+    string line = "";
     int currentLine = 0;
-
     ostringstream ssDept;
     ostringstream ssStatus;
     ostringstream ssYearHired;
     ostringstream ssStudentId;
-
     int seperatorCount = 0;
 
     while(!taListFile.eof()) //iterates through file line by line
@@ -33,8 +32,8 @@ int main()
         ss << line;
         ss << "\n";
 
-        int intYearHired;
-        int intStudentId;
+        int intYearHired = 5555;
+        int intStudentId = 5555;
 
         if(currentLine > 1)
         {
@@ -60,7 +59,7 @@ int main()
 
             Ta tempTa(ssDept.str(), ssStatus.str(), intYearHired, intStudentId);
 
-            taList->push_back(tempTa);
+            taList.push_back(tempTa);
         }
         else if(currentLine == 1) //gets list size
         {
@@ -76,25 +75,75 @@ int main()
         ssStatus.str("");
         ssYearHired.str("");
         ssStudentId.str("");
-
     }
 
-    for(int i = 0; i < (*taList).size() ; i++){
-        taList+i;
-        taList->printInfo();
+    taListFile.close();
+
+
+    for(int i = 0; i < taList.size(); i++){ //shows that the vector is good
+        taList[i].printInfo();
     }
-    //cout << "\noutputs:\n";
-    //cout << listSize;
+
+    cout << "\nCleaning Data... (removing alums)\n" << endl;
+
+    int taListSize = taList.size();
+    int alumCount = 0;
+    bool alumLocations[taListSize];
+
+    vector<Ta> taListClean;
+
+    for(int i = 0; i < taListSize; i++){
+        if(!taList[i].isAlum()){taListClean.push_back(taList[i]);}
+    }
+
+    for(int i = 0; i < taListClean.size(); i++){
+        taListClean[i].printInfo();
+    }
+
+
+
 
     /*
-    Ta firstTa("BCEE", "Alum", 2016, 9886150);
-    Ta secondTa("MIAE", "Grad", 2017, 8829755);
+    int alumCount = 0;
+    int alumLocations[] = {};
+    for(int i = 0; i < taList.size(); i++){
+        if(taList[i].isAlum() == true){
+            taList.erase(taList.begin()+i-alumCount);
+            alumCount++;
+        }
+    }
 
-    taList->push_back(firstTa);
-    taList->push_back(secondTa);
+    for(int i = 0; i < taList.size(); i++){ //shows that the vector is good
+        taList[i].printInfo();
+    }
 
-    cout << "vector1 dept: " << (*taList)[0].getDept() << "\n";
-    cout << "vector2 dept: " << (*taList)[1].getDept() << "\n";
+    /*
+
+    int alumCount = 0;
+
+    /*
+    for(int i = 0; i < (*taList).size()-1; i++){
+        //cout << i << '\n';
+        (*taList)[i].printInfo();
+        /*
+        if((*taList)[i].isAlum() == true){
+            cout << "Alum found at " << i << "\n";
+            (*taList).erase((*taList).begin()+i);
+            alumCount++;
+        }
+    }
+
+    cout << "\n Alum Count: " << alumCount << "\n";
+
+    cout << "AFTER:\n";
+    cout << taList.size();
+    for(int i = 0; i < taList.size(); i++){
+        cout << "[" << i << "] ";
+        taList[i].printInfo();
+    }
+
+    //cout << "\noutputs:\n";
+    //cout << listSize;
     */
     return 0;
 }

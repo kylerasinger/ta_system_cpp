@@ -20,7 +20,7 @@ Ta::Ta(std::string deptS, std::string statusS, int yearN, int idN)
 
 void Ta::printInfo()
 {
-    std::cout << "print info: " <<dept << " " << status << " " << yearHired << " " << studentId << "\n";
+    std::cout << dept << " " << status << " " << yearHired << " " << studentId << std::endl;
 }
 
 bool Ta::isAlum()
@@ -29,6 +29,18 @@ bool Ta::isAlum()
         return true;
     }
     false;
+}
+
+std::string Ta::getInfoString(){
+    std::string infoString;
+    infoString = dept;
+    infoString += '\t';
+    infoString += status;
+    infoString += '\t';
+    infoString += std::to_string(yearHired);
+    infoString += '\t';
+    infoString += std::to_string(studentId);
+    return infoString;
 }
 
 std::string Ta::getDept(){return dept;}

@@ -11,6 +11,7 @@ class Ta
         Ta(std::string deptS, std::string statusS, int yearN, int idN);
 
         void printInfo();
+        std::string getInfoString();
         bool isAlum();
 
         std::string getDept();
