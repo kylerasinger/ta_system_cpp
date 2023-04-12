@@ -100,50 +100,20 @@ int main()
         taListClean[i].printInfo();
     }
 
+    ofstream taListFileOW("ta_list.txt");
+    ostringstream outputss;
 
+    outputss << taListClean.size() << "\n";
 
-
-    /*
-    int alumCount = 0;
-    int alumLocations[] = {};
-    for(int i = 0; i < taList.size(); i++){
-        if(taList[i].isAlum() == true){
-            taList.erase(taList.begin()+i-alumCount);
-            alumCount++;
-        }
+    for(int i = 0; i < taListClean.size(); i++){
+        outputss << taListClean[i].getInfoString();
     }
 
-    for(int i = 0; i < taList.size(); i++){ //shows that the vector is good
-        taList[i].printInfo();
-    }
+    taListFileOW << outputss.str();
 
-    /*
 
-    int alumCount = 0;
 
-    /*
-    for(int i = 0; i < (*taList).size()-1; i++){
-        //cout << i << '\n';
-        (*taList)[i].printInfo();
-        /*
-        if((*taList)[i].isAlum() == true){
-            cout << "Alum found at " << i << "\n";
-            (*taList).erase((*taList).begin()+i);
-            alumCount++;
-        }
-    }
+    taListFileOW.close();
 
-    cout << "\n Alum Count: " << alumCount << "\n";
-
-    cout << "AFTER:\n";
-    cout << taList.size();
-    for(int i = 0; i < taList.size(); i++){
-        cout << "[" << i << "] ";
-        taList[i].printInfo();
-    }
-
-    //cout << "\noutputs:\n";
-    //cout << listSize;
-    */
     return 0;
 }

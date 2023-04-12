@@ -40,6 +40,7 @@ std::string Ta::getInfoString(){
     infoString += std::to_string(yearHired);
     infoString += '\t';
     infoString += std::to_string(studentId);
+    infoString += '\n';
     return infoString;
 }
 
