@@ -33,14 +33,14 @@ bool Ta::isAlum()
 
 std::string Ta::getInfoString(){
     std::string infoString;
-    infoString = dept;
+    infoString += '\n';
+    infoString += dept;
     infoString += '\t';
     infoString += status;
     infoString += '\t';
     infoString += std::to_string(yearHired);
     infoString += '\t';
     infoString += std::to_string(studentId);
-    infoString += '\n';
     return infoString;
 }
 

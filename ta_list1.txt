@@ -1,5 +1,0 @@
-4
-MIAE	Grad	2017	2
-CIS	Grad	2017	3
-CIS	Grad	2017	5
-BEAN	Grad	2017	12
