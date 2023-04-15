@@ -1,11 +1,5 @@
 # depslib dependency file v1.0
-1681589871 source:c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\main.cpp
-	<iostream>
-	<vector>
-	<fstream>
-	<sstream>
-	<string>
-	<algorithm>
+1681594327 source:c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\main.cpp
 	"functions.cpp"
 	"Ta.h"
 
@@ -18,7 +12,7 @@
 1681313659 c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\functions.h
 	"functions.cpp"
 
-1681593293 c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\functions.cpp
+1681595860 c:\users\kyler\onedrive\desktop\programming\ta_system_cpp\functions.cpp
 	<iostream>
 	<vector>
 	<fstream>

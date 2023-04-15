@@ -20,7 +20,7 @@ void addNewTA(std::vector<Ta>& taList){
         try{
             std::cin >> inputDept >> inputStatus >> inputYearHired >> inputStudentId;
             if(std::cin.fail()){
-                throw std::runtime_error("Wrong input, Enter an integer.");
+                throw std::runtime_error("Wrong input, enter an integer.");
             }
         }catch(std::runtime_error& error){
             std::cout << error.what();
@@ -30,7 +30,7 @@ void addNewTA(std::vector<Ta>& taList){
             return;
         }
 
-        for(int i = 0; taList.size(); i++){
+        for(int i = 0; i < taList.size(); i++){
             if(taList[i].getStudentId() == inputStudentId){
                 std::cout << "Invalid student id: already in file.\n";
                 addNewTA(taList);
@@ -39,10 +39,12 @@ void addNewTA(std::vector<Ta>& taList){
         }
 
         Ta newTa(inputDept, inputStatus, inputYearHired, inputStudentId);
-        std::cout << "New TA info: ";
+        std::cout << "New TA Added: ";
         newTa.printInfo();
 
         taList.push_back(newTa);
+
+        addNewTA(taList);
     }
 }
 
@@ -56,21 +58,47 @@ void orderList(std::vector<Ta>& taList){
         std::cout << "\nParameters to order by: \n";
         std::cout << "\t1. Department\n\t2. Status\n\t3. Year Hired\n\t4. Student Id\n";
         std::cout << "Enter Selection: ";
-        std::cin >> orderChoice;
+        try{
+            std::cin >> orderChoice;
+            if(std::cin.fail()){
+                throw std::runtime_error("Wrong input, enter an integer. ");
+            }
+        }catch(std::runtime_error& error){
+            std::cout << error.what();
+            std::cin.clear();
+            std::cin.ignore(INT_MAX, '\n');
+            orderList(taList);
+            return;
+        }
+
         std::cout << "\nOrder options: \n";
         std::cout << "\t1. Ascending\n\t2. Descending\n";
-        std::cin >> orderDir;
+        std::cout << "Enter Selection: ";
+        try{
+            std::cin >> orderDir;
+            if(std::cin.fail()){
+                throw std::runtime_error("Wrong input, enter an integer. ");
+            }
+        }catch(std::runtime_error& error){
+            std::cout << error.what();
+            std::cin.clear();
+            std::cin.ignore(INT_MAX, '\n');
+            orderList(taList);
+            return;
+        }
 
-        switch(orderChoice){
+        switch(orderChoice){ //switch tree for options listed above
             case 1:{
                 switch(orderDir){
                     case 1:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getDept() < b.getDept();});
+                            return a.getDept() < b.getDept();
+                        });
                         break;
                     case 2:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getDept() > b.getDept();});
+                             return a.getDept() > b.getDept();
+                        });
                         break;
                 break;
                 }
@@ -79,11 +107,13 @@ void orderList(std::vector<Ta>& taList){
                 switch(orderDir){
                     case 1:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getStatus() < b.getStatus();});
+                             return a.getStatus() < b.getStatus();
+                        });
                         break;
                     case 2:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getStatus() > b.getStatus();});
+                             return a.getStatus() > b.getStatus();
+                        });
                         break;
                 break;
                 }
@@ -92,11 +122,13 @@ void orderList(std::vector<Ta>& taList){
                 switch(orderDir){
                     case 1:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getYearHired() < b.getYearHired();});
+                             return a.getYearHired() < b.getYearHired();
+                        });
                         break;
                     case 2:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getYearHired() > b.getYearHired();});
+                             return a.getYearHired() > b.getYearHired();
+                        });
                         break;
                 break;
                 }
@@ -105,11 +137,13 @@ void orderList(std::vector<Ta>& taList){
                 switch(orderDir){
                     case 1:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getStudentId() < b.getStudentId();});
+                             return a.getStudentId() < b.getStudentId();
+                        });
                         break;
                     case 2:
                         sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
-                             return a.getStudentId() > b.getStudentId();});
+                             return a.getStudentId() > b.getStudentId();
+                        });
                         break;
                 break;
                 }
@@ -174,7 +208,6 @@ void cleanFile(std::string s){
         {
             listSize = stoi(ss.str());
         }
-        //cout << ss.str(); //put this as first line in new file
 
         seperatorCount = 0;
 
@@ -211,7 +244,13 @@ void cleanFile(std::string s){
 
     addNewTA(taListClean);
 
+    std::cout << "taListClean.size(): " << taListClean.size();
+
     orderList(taListClean);
+
+    for(int i = 0; i < taListClean.size(); i++){
+        taListClean[i].printInfo();
+    }
 
     ofstream taListFileOW("ta_list.txt");
     ostringstream outputss;
