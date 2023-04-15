@@ -5,7 +5,6 @@
 #include <string>
 #include <algorithm>
 #include "Ta.h"
-#include "functions.h"
 
 void addNewTA(std::vector<Ta>& taListPass){
     char input;
@@ -16,6 +15,7 @@ void addNewTA(std::vector<Ta>& taListPass){
         std::string inputStatus;
         int inputYearHired;
         int inputStudentId;
+
         std::cout << "Enter department: ";
         std::cin >> inputDept;
         std::cout << "Enter status: ";
@@ -25,8 +25,11 @@ void addNewTA(std::vector<Ta>& taListPass){
         std::cout << "Enter student id: ";
         std::cin >> inputStudentId;
 
-        Ta newTa(inputDept, inputStatus, std::to_string(inputYearHired), std::to_string(inputStudentId));
+        Ta newTa(inputDept, inputStatus, inputYearHired, inputStudentId);
+        std::cout << "New TA info: ";
         newTa.printInfo();
+
+        taListPass.push_back(newTa);
     }
 }
 
@@ -121,7 +124,7 @@ void cleanFile(std::string s){
         taListClean[i].printInfo();
     }
 
-    addNewTA(taList);
+    addNewTA(taListClean);
 
     ofstream taListFileOW("ta_list.txt");
     ostringstream outputss;

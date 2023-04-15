@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
-#include "functions.h"
+#include "functions.cpp"
 #include "Ta.h"
 
 using namespace std;
