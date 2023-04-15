@@ -4,33 +4,118 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+#include <climits>
 #include "Ta.h"
 
-void addNewTA(std::vector<Ta>& taListPass){
+void addNewTA(std::vector<Ta>& taList){
     char input;
-    std::cout << "Would you like to add a new TA? (y/n): ";
+    std::cout << "\nWould you like to add a new TA? (y/n): ";
     std::cin >> input;
     if(input == 'y'){
-        std::string inputDept;
-        std::string inputStatus;
-        int inputYearHired;
-        int inputStudentId;
+        std::string inputDept, inputStatus;
+        int inputYearHired, inputStudentId;
 
-        std::cout << "Enter department: ";
-        std::cin >> inputDept;
-        std::cout << "Enter status: ";
-        std::cin >> inputStatus;
-        std::cout << "Enter year hired: ";
-        std::cin >> inputYearHired;
-        std::cout << "Enter student id: ";
-        std::cin >> inputStudentId;
+        std::cout << "Enter TA info (dept, status, yearHired, studentId): ";
+
+        try{
+            std::cin >> inputDept >> inputStatus >> inputYearHired >> inputStudentId;
+            if(std::cin.fail()){
+                throw std::runtime_error("Wrong input, Enter an integer.");
+            }
+        }catch(std::runtime_error& error){
+            std::cout << error.what();
+            std::cin.clear();
+            std::cin.ignore(INT_MAX, '\n');
+            addNewTA(taList);
+            return;
+        }
+
+        for(int i = 0; taList.size(); i++){
+            if(taList[i].getStudentId() == inputStudentId){
+                std::cout << "Invalid student id: already in file.\n";
+                addNewTA(taList);
+                return;
+            }
+        }
 
         Ta newTa(inputDept, inputStatus, inputYearHired, inputStudentId);
         std::cout << "New TA info: ";
         newTa.printInfo();
 
-        taListPass.push_back(newTa);
+        taList.push_back(newTa);
     }
+}
+
+void orderList(std::vector<Ta>& taList){
+    std::string choice;
+    std::cout << "\nWould you like to reorder the list? (y/n): ";
+    std::cin >> choice;
+    if(choice == "y"){
+        int orderChoice, orderDir;
+
+        std::cout << "\nParameters to order by: \n";
+        std::cout << "\t1. Department\n\t2. Status\n\t3. Year Hired\n\t4. Student Id\n";
+        std::cout << "Enter Selection: ";
+        std::cin >> orderChoice;
+        std::cout << "\nOrder options: \n";
+        std::cout << "\t1. Ascending\n\t2. Descending\n";
+        std::cin >> orderDir;
+
+        switch(orderChoice){
+            case 1:{
+                switch(orderDir){
+                    case 1:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getDept() < b.getDept();});
+                        break;
+                    case 2:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getDept() > b.getDept();});
+                        break;
+                break;
+                }
+            }
+            case 2:{
+                switch(orderDir){
+                    case 1:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getStatus() < b.getStatus();});
+                        break;
+                    case 2:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getStatus() > b.getStatus();});
+                        break;
+                break;
+                }
+            }
+            case 3:{
+                switch(orderDir){
+                    case 1:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getYearHired() < b.getYearHired();});
+                        break;
+                    case 2:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getYearHired() > b.getYearHired();});
+                        break;
+                break;
+                }
+            }
+            case 4:{
+                switch(orderDir){
+                    case 1:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getStudentId() < b.getStudentId();});
+                        break;
+                    case 2:
+                        sort(taList.begin(), taList.end(), [](Ta& a, Ta& b){
+                             return a.getStudentId() > b.getStudentId();});
+                        break;
+                break;
+                }
+            }
+        }
+    }else{return;};
 }
 
 void cleanFile(std::string s){
@@ -125,6 +210,8 @@ void cleanFile(std::string s){
     }
 
     addNewTA(taListClean);
+
+    orderList(taListClean);
 
     ofstream taListFileOW("ta_list.txt");
     ostringstream outputss;
